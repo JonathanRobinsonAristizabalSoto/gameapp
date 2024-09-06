@@ -1,0 +1,187 @@
+/* Ubicación: gameapp/public/css/index.css */
+
+/* Variables de colores y fuentes */
+:root {
+    --ff-heading: "Russo One", sans-serif;
+    --ff-body: "Poppins", sans-serif;
+    --ff-title: "Aldrich", sans-serif;
+    --morado: #23234B;
+    --cian: #06cfce;
+    --magenta: #d3167c;
+    --blanco: #ececed;
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* Estilos generales del cuerpo */
+body {
+    background-color: var(--blanco);
+    font-family: var(--ff-body);
+    font-weight: 100;
+    font-style: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; /* Asegura que no haya margen alrededor del body */
+    overflow: hidden; /* Evita el scroll cuando el contenido está oculto */
+}
+
+/* ----------------------------------------------------------------------------------------------- */
+
+/* Estilo principal del contenido */
+main {
+    background: url(../images/01-Welcome.png) no-repeat center center;
+    background-size: cover;
+    height: 800px;
+    width: 400px;
+    position: relative; /* Asegura que <main> esté sobre otros elementos */
+    z-index: 1;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/* Estilos para la sección de bienvenida */
+main.cuerpo {
+    #main-content {
+        position: relative;
+        z-index: 2; /* Asegura que el contenido esté sobre el fondo */
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-block: 3rem;
+    }
+
+    .titulo {
+        color: var(--cian);
+        font-family: var(--ff-title);
+        font-size: 1rem;
+        text-align: center;
+        margin: 1rem;
+    }
+
+    .logotitulo {
+        justify-content: center;
+        padding: 15px;
+        text-indent: -10px;
+        margin-left: 15px;
+    }
+
+    .icoback {
+        margin-left: 25px;
+    }
+
+    /* Estilos para los sliders */
+    section.slider {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+
+        img {
+            width: 280px;
+            margin: auto;
+        }
+
+        /* Estilos para los nav o botones del slider */
+        div.owl-nav {
+            position: relative;
+            top: -186px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--cian);
+
+            button {
+                transition: transform 0.2s ease-in, box-shadow 0.2s ease-in, border-color 0.2s ease-in;
+                border: 2px solid;
+                background: var(--morado);
+                padding: 10px;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                font-size: 4rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin: 10px; /* Ajusta el espacio entre botones */
+
+                /* Ajustes personalizados el span dentro del boton */
+                span {
+                    font-weight: 200;
+                    position: relative;
+                    align-items: center;
+                    justify-content: center;
+                    top: -3px; /* Ajuste para centrar verticalmente */
+                    margin-left: -2px; /* Ajuste horizontal */
+                }
+            }
+
+            /* Estilos para el span dentro del primer botón */
+            button:nth-child(1) span {
+                left: 1px;
+            }
+
+            /* Estilos para el span dentro del segundo botón */
+            button:nth-child(2) span {
+                left: 2px;
+            }
+        }
+
+        /* Estilos para los botones tipo dots  */
+        .owl-dots {
+            position: relative;
+            top: -30px;
+        }
+
+        .owl-dots span {
+            background: var(--morado);
+        }
+
+        .owl-dots span:hover {
+            background: var(--magenta);
+        }
+
+        .owl-dot.active span {
+            background: var(--cian);
+        }
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        /* Estilos botón enter */
+        a:is(:link, visited) {
+            background: url(../images/btn.png) no-repeat;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+            transition: all 0.2s ease-in;
+            width: 290px;
+        }
+
+        .content-btn-footer {
+            margin-right: 10px;
+            margin-top: -6px;
+            width: 90px;
+        }
+
+        a:is(:hover) {
+            background: url(../images/Boton-hover.png) no-repeat center;
+            transform: scale(1) translate(-4px);
+        }
+
+        a:is(:active) {
+            background: url(../images/btn-active.png) no-repeat center;
+        }
+    }
+}
+
+

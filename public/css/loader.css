@@ -1,0 +1,75 @@
+/* Ubicación: gameapp/public/css/loader.css */
+/* ------------------------------------------------------------------------------- */
+
+/* Variables de colores */
+:root {
+    --morado: #23234B;
+    --cian: #06cfce;
+    --magenta: #d3167c;
+    --blanco: #ececed;
+}
+
+/* Estilos para el loader */
+.loader {
+    width: 150px; /* Tamaño del loader */
+    height: 150px; /* Tamaño del loader */
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;/* Asegura la centralización en la ventana */
+    top: 40%; /* Posiciona verticalmente al centro */
+    left: 30%; /* Posiciona horizontalmente al centro */
+    transform: translate(-50%, -50%); /* Centra el loader en la pantalla */
+    border: 10px solid; /* Grosor del borde del loader */
+    border-color: var(--blanco) var(--blanco) transparent transparent; /* Colores del borde */
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite; /* Animación de rotación */
+    z-index: 9999; /* Asegura que el loader esté encima de otros elementos */
+}
+
+/* Spinner interno del loader */
+.loader::after,
+.loader::before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 10px solid; /* Grosor del borde del spinner interno */
+    border-color: transparent transparent var(--magenta) var(--magenta); /* Colores del borde */
+    width: 100px; /* Tamaño del spinner interno */
+    height: 100px; /* Tamaño del spinner interno */
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotationBack 0.5s linear infinite; /* Animación de rotación en sentido contrario */
+    transform-origin: center center;
+}
+
+/* Spinner interno más pequeño */
+.loader::before {
+    width: 80px; /* Tamaño del spinner interno más pequeño */
+    height: 80px; /* Tamaño del spinner interno más pequeño */
+    border-color: var(--cian) var(--cian) transparent transparent; /* Colores del borde */
+}
+
+/* Animación de rotación del loader */
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animación de rotación en sentido contrario */
+@keyframes rotationBack {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
