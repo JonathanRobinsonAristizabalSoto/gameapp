@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -36,31 +36,41 @@ class CategoryController extends Controller
     /**
      * Almacena una nueva categoría en la base de datos.
      *
-     * @param  \App\Http\Requests\CategoryRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
+        // Validar los datos del formulario
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'manufacturer' => 'required|string|max:255',
+            'releasedate' => 'required|date',
+            'description' => 'nullable|string|max:500',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
         // Manejar la carga de la imagen
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images'), $imageName);
         } else {
             $imageName = 'no-photo.png';
         }
 
         // Crear la nueva categoría
-        $category = Category::create([
+        Category::create([
             'name' => $request->name,
             'manufacturer' => $request->manufacturer,
             'releasedate' => $request->releasedate,
-            'image' => $imageName, // Guardar solo el nombre del archivo
             'description' => $request->description ?? '',
+            'image' => $imageName,
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Categoría creada exitosamente.');
     }
+
     // ------------------------------------------------------------------------------------
 
     /**
@@ -76,7 +86,6 @@ class CategoryController extends Controller
 
     // ------------------------------------------------------------------------------------
 
-
     /**
      * Actualiza la categoría especificada en la base de datos.
      *
@@ -89,30 +98,35 @@ class CategoryController extends Controller
         // Validar los datos del formulario
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'manufacturer' => 'required|string|max:255',
+            'releasedate' => 'required|date',
+            'description' => 'nullable|string|max:500',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
-        // Manejar la carga de la nueva imagen
-        if ($request->hasFile('image')) {
-            // Obtener el archivo de imagen
-            $image = $request->file('image');
-            // Generar un nombre único para la imagen
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            // Mover la imagen al directorio public/images
-            $image->move(public_path('images'), $imageName);
-            // Actualizar el campo de imagen en la categoría
-            $category->image = $imageName;
-        }
 
         // Actualizar otros campos de la categoría
         $category->name = $request->input('name');
+        $category->manufacturer = $request->input('manufacturer');
+        $category->releasedate = $request->input('releasedate');
         $category->description = $request->input('description');
+
+        // Manejar la carga de la nueva imagen
+        if ($request->hasFile('image')) {
+            // Eliminar la imagen antigua si existe
+            if ($category->image && file_exists(public_path('images/' . $category->image))) {
+                unlink(public_path('images/' . $category->image));
+            }
+
+            // Subir la nueva imagen
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $category->image = $imageName;
+        }
+
         $category->save();
 
-        // Redirigir a la vista de edición con un mensaje de éxito
-        return redirect()->route('categories.index', $category->id)
-            ->with('success', 'Categoría actualizada correctamente.');
+        return redirect()->route('categories.index')->with('success', 'Categoría actualizada correctamente.');
     }
 
     // ------------------------------------------------------------------------------------
@@ -178,12 +192,19 @@ class CategoryController extends Controller
     {
         // Verificar si hay juegos relacionados
         if ($category->games()->count() > 0) {
-            return redirect()->route('categories.index')->with('error', 'No se puede eliminar la categoría porque está asociada con uno o más juegos.');
+            return redirect()->route('categories.index')
+                ->with('error', 'No se puede eliminar la categoría porque está asociada con uno o más juegos.');
+        }
+
+        // Eliminar la imagen de la categoría si existe
+        if ($category->image && file_exists(public_path('images/' . $category->image))) {
+            unlink(public_path('images/' . $category->image));
         }
 
         // Elimina la categoría de la base de datos
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Categoría eliminada exitosamente.');
+        return redirect()->route('categories.index')
+            ->with('success', 'Categoría eliminada exitosamente.');
     }
 }

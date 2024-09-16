@@ -6,7 +6,7 @@
 @section('class', 'cuerpo')
 
 @section('content')
-    <!-- cabecera -->
+    <!-- Cabecera -->
     <header>
         <section class="cabecera_categories">
             <!-- Enlace al dashboard -->
@@ -24,19 +24,26 @@
 
         <!-- Mensajes de éxito y error -->
         @if (session('success'))
-            <div class="alert alert-success" id="success-message"
-                style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px; display: none;">
+            <div class="alert alert-success" id="success-message" role="alert"
+                style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px;">
                 {{ session('success') }}
             </div>
         @endif
 
-        <!-- caja de busqueda -->
+        @if (session('error'))
+            <div class="alert alert-error" id="error-message" role="alert"
+                style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px;">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <!-- Caja de búsqueda -->
         <div class="search-box">
             <input type="text" id="qsearch" placeholder="Buscar">
             <i class="fas fa-filter filter-icon"></i>
         </div>
 
-        <!-- boton add -->
+        <!-- Botón agregar -->
         <div class="botonuser">
             <a href="{{ route('categories.create') }}">
                 <button class="btn-user">
@@ -45,7 +52,7 @@
             </a>
         </div>
 
-        <!-- contenido dashboard -->
+        <!-- Contenido del dashboard -->
         <section class="contenedor_modulos_dash" id="list">
             @include('categories.partials.category_list', ['categories' => $categories])
         </section>
@@ -54,17 +61,16 @@
 
 @section('js')
     <script>
-        // Script para el menú hamburguesa
-        $('header').on('click', '.btn-burger', function() {
-            $(this).toggleClass('active');
-            $('.nav').toggleClass('active');
-            $('.contenido_menu').toggleClass('oculto');
-        });
-
-        // Script para búsqueda en tiempo real
         $(document).ready(function() {
-            $('body').on('keyup', '#qsearch', function(e) {
-                e.preventDefault();
+            // Script para el menú hamburguesa
+            $('header').on('click', '.btn-burger', function() {
+                $(this).toggleClass('active');
+                $('.nav').toggleClass('active');
+                $('.contenido_menu').toggleClass('oculto');
+            });
+
+            // Script para búsqueda en tiempo real
+            $('#qsearch').on('keyup', function() {
                 var query = $(this).val();
                 var token = '{{ csrf_token() }}';
 
@@ -94,11 +100,22 @@
             });
 
             // Mostrar y ocultar el mensaje de éxito de manera suave
-            $('#success-message').fadeIn('slow', function() {
-                setTimeout(function() {
-                    $('#success-message').fadeOut('slow');
-                }, 3000);
-            });
+            @if (session('success'))
+                $('#success-message').fadeIn('slow', function() {
+                    setTimeout(function() {
+                        $('#success-message').fadeOut('slow');
+                    }, 4000);
+                });
+            @endif
+
+            // Mostrar y ocultar el mensaje de error de manera suave
+            @if (session('error'))
+                $('#error-message').fadeIn('slow', function() {
+                    setTimeout(function() {
+                        $('#error-message').fadeOut('slow');
+                    }, 4000);
+                });
+            @endif
         });
     </script>
 @endsection

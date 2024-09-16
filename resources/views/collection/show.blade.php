@@ -20,7 +20,7 @@
         <div class="contenedor-show">
             <div class="img_perfiles">
                 <img class="img_perfil_usuario"
-                    src="{{ $game->image ? asset('storage/' . $game->image) : asset('images/no-image.png') }}"
+                    src="{{ $game->image ? asset('images/' . $game->image) : asset('images/no-image.png') }}"
                     alt="Game Image">
             </div>
             {{-- Datos del juego --}}

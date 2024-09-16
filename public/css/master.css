@@ -1086,6 +1086,32 @@ main.cuerpo {
     }
 }
 
+.alert-success {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--blanco);
+    color: var(--morado);
+    border: 1px solid var(--cian);
+    font-family: var(--ff-body);
+    font-weight: 400;
+    width: 80%;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.alert-error {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--blanco);
+    color: var(--morado);
+    border: 1px solid var(--magenta);
+    font-family: var(--ff-body);
+    font-weight: 400;
+    width: 80%;
+    align-items: center;
+    margin: 0 auto;
+}
+
 /* Contenedor para imágenes de usuario en el menú precargadas */
 .img_perfiles {
     position: relative;
@@ -1616,6 +1642,7 @@ main.cuerpo {
         width: 100%;
         padding: 10px;
         font-size: 16px;
+        font-weight: 400;
         border: none; /* Sin borde */
         border-radius: 4px;
         background-color: transparent; /* Fondo transparente */
@@ -1669,3 +1696,84 @@ main.cuerpo {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+
+
+
+/* Estilo para el título de notificación */
+.notification-title {
+    font-size: 1.5rem; /* Tamaño del texto del título */
+    font-weight: 700; /* Negrita para el título */
+    margin-bottom: 10px; /* Margen inferior para separar del contenido */
+    color: var(--cian); /* Color del título */
+}
+
+/* Estilo para los mensajes cuando no hay categorías ni juegos */
+.no-categories-games-message {
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo semitransparente */
+    color: var(--blanco); /* Color del texto */
+    font-family: var(--ff-body); /* Fuente del mensaje */
+    font-size: 1rem; /* Tamaño del texto */
+    font-weight: 400; /* Negrita para mayor énfasis */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Alinear texto al centro */
+    margin: 20px auto; /* Margen y centrado automático */
+    width: 50%; /* Ancho relativo */
+    max-width: 400px; /* Ancho máximo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border: 1px solid var(--cian); /* Borde para resaltar */
+}
+
+/* Estilo para el mensaje cuando no hay categorías */
+.no-categories-message {
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo semitransparente */
+    color: var(--blanco); /* Color del texto */
+    font-family: var(--ff-body); /* Fuente del mensaje */
+    font-size: 1rem; /* Tamaño del texto */
+    font-weight: 400; /* Negrita para mayor énfasis */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Alinear texto al centro */
+    margin: 20px auto; /* Margen y centrado automático */
+    width: 50%; /* Ancho relativo */
+    max-width: 400px; /* Ancho máximo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border: 1px solid var(--cian); /* Borde para resaltar */
+}
+
+/* Estilo para el mensaje cuando no hay juegos */
+.no-games-message {
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo semitransparente */
+    color: var(--blanco); /* Color del texto */
+    font-family: var(--ff-body); /* Fuente del mensaje */
+    font-size: 1rem; /* Tamaño del texto */
+    font-weight: 400; /* Negrita para mayor énfasis */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Alinear texto al centro */
+    margin: 20px auto; /* Margen y centrado automático */
+    width: 50%; /* Ancho relativo */
+    max-width: 400px; /* Ancho máximo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border: 1px solid var(--cian); /* Borde para resaltar */
+}
+
+/* Estilo para el texto resaltado en los mensajes */
+.highlight1 {
+    font-weight: 600; /* Negrita para el texto resaltado */
+    color: var(--cian); /* Color resaltado */
+    padding: 2px 4px; /* Espaciado alrededor del texto resaltado */
+    border-radius: 4px; /* Bordes redondeados del resaltado */
+}
+
+/* Estilo para el texto resaltado en los mensajes */
+.highlight2 {
+    font-weight: 600; /* Negrita para el texto resaltado */
+    color: var(--magenta); /* Color resaltado */
+    padding: 2px 4px; /* Espaciado alrededor del texto resaltado */
+    border-radius: 4px; /* Bordes redondeados del resaltado */
+}
+
+
+

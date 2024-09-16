@@ -1,5 +1,3 @@
-{{-- Ubicación: gameapp/resources/views/dashboard.blade.php --}}
-
 @extends('layouts.plantilla2')
 
 @section('title', 'Dashboard')
@@ -15,14 +13,18 @@
         </section>
     </header>
 
-    {{-- ----------------- --}}
-    {{-- Contenedor del mensaje de éxito --}}
-    {{-- ----------------- --}}
+    <!-- Mensajes de éxito y error -->
     @if (session('success'))
-        <div id="success-message" class="alert alert-success">
-            <ul>
-                <li>{{ session('success') }}</li>
-            </ul>
+        <div class="alert alert-success" id="success-message" role="alert"
+            style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px;">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-error" id="error-message" role="alert"
+            style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px;">
+            {{ session('error') }}
         </div>
     @endif
 
@@ -53,7 +55,8 @@
         {{-- Módulo Categorías --}}
         <section class="contenedor_dash">
             <section class="contenido_dash">
-                <img src="{{ asset('images/ico-menu-cat-dash.png') }}" alt="Ícono de categorías" class="img-contenedor-dash">
+                <img src="{{ asset('images/ico-menu-cat-dash.png') }}" alt="Ícono de categorías"
+                    class="img-contenedor-dash">
                 <div class="texto-contenedor-dash">
                     <div class="titulo_modulo">
                         <p>module</p>
@@ -64,7 +67,8 @@
                 </div>
                 <div class="boton_view_dash">
                     <a href="{{ url('categories') }}" class="btn btn-explore">
-                        <img class="content-btn-view-dash" src="{{ asset('images/btn-view-dash.png') }}" alt="Ver categorías">
+                        <img class="content-btn-view-dash" src="{{ asset('images/btn-view-dash.png') }}"
+                            alt="Ver categorías">
                     </a>
                 </div>
             </section>
@@ -106,10 +110,8 @@
                     document.querySelector('.contenido_menu').classList.toggle('oculto');
                 }
             });
-        });
 
-        // Mostrar y ocultar el mensaje de éxito de manera suave
-        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar y ocultar el mensaje de éxito de manera suave
             var successMessage = document.getElementById('success-message');
             if (successMessage) {
                 setTimeout(function() {

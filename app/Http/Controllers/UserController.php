@@ -29,15 +29,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'document' => 'required|string|max:255',
+            'document' => 'numeric|digits_between:1,20|unique:users,document',
             'fullname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:6|confirmed|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/', // Alfanumérica
             'role' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
+            'phone' => 'required|numeric|digits_between:7,20',
             'gender' => 'required|string|in:male,female,other',
             'birthdate' => 'required|date',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+        ], [
+            'document.numeric' => 'El campo documento debe ser numérico.',
+            'document.digits_between' => 'El documento debe tener entre 1 y 20 dígitos.',
+            'document.unique' => 'El documento ya está registrado.',
+            'phone.numeric' => 'El campo teléfono debe ser numérico.',
+            'phone.digits_between' => 'El teléfono debe tener entre 7 y 20 dígitos.',
+            'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
+            'password.regex' => 'La contraseña debe contener al menos una letra y un número.',
         ]);
 
         $user = new User();
@@ -82,10 +90,22 @@ class UserController extends Controller
             'fullname' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'role' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
+            'phone' => 'required|numeric|digits_between:7,20',
             'gender' => 'required|string|in:male,female,other',
             'birthdate' => 'required|date',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'password' => [
+                'nullable',
+                'string',
+                'min:6',
+                'confirmed',
+                'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/', // Alfanumérica
+            ],
+        ], [
+            'phone.numeric' => 'El campo teléfono debe ser numérico.',
+            'phone.digits_between' => 'El teléfono debe tener entre 7 y 20 dígitos.',
+            'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
+            'password.regex' => 'La contraseña debe contener al menos una letra y un número.',
         ]);
 
         $user->fullname = $request->fullname;
@@ -94,6 +114,10 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->gender = $request->gender;
         $user->birthdate = $request->birthdate;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
 
         if ($request->hasFile('photo')) {
             $user->photo = $request->file('photo')->store('', 'public');

@@ -32,17 +32,6 @@
         </header>
 
         {{-- ----------------- --}}
-        {{-- Mostrar mensaje de éxito --}}
-        {{-- ----------------- --}}
-        @if (session('success'))
-            <div class="alert alert-success">
-                <ul>
-                    <li>{{ session('success') }}</li>
-                </ul>
-            </div>
-        @endif
-
-        {{-- ----------------- --}}
         {{-- Mostrar mensaje de error --}}
         {{-- ----------------- --}}
         @if ($errors->any())
@@ -67,7 +56,8 @@
                         <h3>Email</h3>
                     </label>
                     <div class="caja">
-                        <input type="email" name="email" placeholder="Ingrese su email" value="{{ old('email') }}" required>
+                        <input type="email" name="email" placeholder="Ingrese su email" value="{{ old('email') }}"
+                            required>
                     </div>
                 </div>
                 <div class="contenedor_titulo_caja_login">
@@ -89,7 +79,8 @@
                         <p>Remember Me</p>
                     </label>
                     <div class="caja_recordar">
-                        <input type="checkbox" class="checkbox_recordar" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                        <input type="checkbox" class="checkbox_recordar" name="remember"
+                            {{ old('remember') ? 'checked' : '' }}>
                     </div>
                 </section>
 
@@ -99,7 +90,8 @@
                 <footer>
                     <div class="botonlogin">
                         <button type="submit" class="btn btn-explore">
-                            <img class="content-btn2-footer" src="{{ asset('images/content-btn2-footer.svg') }}" alt="Login">
+                            <img class="content-btn2-footer" src="{{ asset('images/content-btn2-footer.svg') }}"
+                                alt="Login">
                         </button>
                         <a class="recordar_contraseña" href="#">Forgot your password?</a>
                     </div>
@@ -134,7 +126,8 @@
                 const passwordInput = this.nextElementSibling;
                 togglePass = !togglePass;
                 passwordInput.type = togglePass ? 'text' : 'password';
-                this.src = togglePass ? '{{ asset('images/ico-eye-closed.svg') }}' : '{{ asset('images/ico-eye.svg') }}';
+                this.src = togglePass ? '{{ asset('images/ico-eye-closed.svg') }}' :
+                    '{{ asset('images/ico-eye.svg') }}';
             });
         });
 

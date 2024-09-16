@@ -17,6 +17,21 @@
             <img src="{{ asset('images/logo-cabecera.svg') }}" alt="Logo">
         </header>
 
+        <!-- Mensajes de éxito y error -->
+        @if (session('success'))
+            <div class="alert alert-success" id="success-message" role="alert"
+                style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px;">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-error" id="error-message" role="alert"
+                style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px;">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <!-- Sección del carrusel -->
         <section class="slider owl-carousel owl-theme">
             <!-- Imágenes del carrusel -->
@@ -71,7 +86,7 @@
                             $('#loader').fadeOut(300, function() {
                                 $('#catalogue-container').fadeIn(300);
                                 window.location.href =
-                                "{{ route('catalogue') }}";
+                                    "{{ route('catalogue') }}";
                             });
                         }, 300);
                     });

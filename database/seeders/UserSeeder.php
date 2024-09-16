@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'gender' => 'Male',
             'birthdate' => '1990-12-30', // Formato Y-m-d
             'phone' => '3187542709',
-            'email' => 'Admin@gmail.com',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('Admin1234'),
             'role' => 'admin',
             'photo' => 'perfilm1.jpg', // Ruta de la foto sin 'images/'

@@ -15,13 +15,19 @@ class CollectionController extends Controller
         // Obtener los juegos del usuario con la relación de categorías
         $games = Game::with('category')->where('user_id', $user->id)->get();
 
-        // Agrupar juegos por categoría
+        // Verificar si el usuario tiene juegos
+        $hasGames = $games->isNotEmpty();
+
+        // Agrupar juegos por categorías
         $categories = $games->groupBy(function ($game) {
             return $game->category->name;
         });
 
-        // Retornar la vista con las categorías agrupadas
-        return view('collection.index', compact('categories'));
+        // Verificar si el usuario tiene categorías
+        $hasCategories = $categories->isNotEmpty();
+
+        // Retornar la vista con las variables necesarias
+        return view('collection.index', compact('categories', 'hasGames', 'hasCategories'));
     }
 
     public function show($id)

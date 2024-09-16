@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Game;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -14,7 +16,6 @@ class GameController extends Controller
      */
     public function index()
     {
-        // Cargar la relación 'category' con los juegos
         $games = Game::with('category')->get();
         return view('games.index', compact('games'));
     }
@@ -28,7 +29,8 @@ class GameController extends Controller
      */
     public function create()
     {
-        return view('games.create');
+        $categories = Category::all();
+        return view('games.create', compact('categories'));
     }
 
     // ------------------------------------------------------------------------------------
@@ -41,39 +43,34 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar los datos del formulario
         $request->validate([
             'title' => 'required|unique:games|max:255',
             'developer' => 'required|string|max:255',
             'releasedate' => 'required|date',
-            'category_id' => 'required|integer',
-            'user_id' => 'required|integer',
+            'category_id' => 'required|integer|exists:categories,id',
             'price' => 'required|numeric',
             'genre' => 'required|string|max:255',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Manejar la carga de la imagen
+        $imageName = 'no-photo.png'; // Valor por defecto
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('images'), $imageName);
-        } else {
-            $imageName = 'no-photo.png';
         }
 
-        // Crear el nuevo juego
         Game::create([
             'title' => $request->title,
             'developer' => $request->developer,
             'releasedate' => $request->releasedate,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
+            'user_id' => Auth::id(),
             'price' => $request->price,
             'genre' => $request->genre,
             'description' => $request->description,
-            'image' => $imageName, // Guardar solo el nombre del archivo
+            'image' => $imageName,
         ]);
 
         return redirect()->route('games.index')->with('success', 'Juego creado exitosamente.');
@@ -89,7 +86,8 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        return view('games.edit', compact('game'));
+        $categories = Category::all();
+        return view('games.edit', compact('game', 'categories'));
     }
 
     // ------------------------------------------------------------------------------------
@@ -103,33 +101,32 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        // Validar los datos del formulario
         $request->validate([
             'title' => 'required|max:255|unique:games,title,' . $game->id,
             'developer' => 'required|string|max:255',
             'releasedate' => 'required|date',
-            'category_id' => 'required|integer',
-            'user_id' => 'required|integer',
+            'category_id' => 'required|integer|exists:categories,id',
             'price' => 'required|numeric',
             'genre' => 'required|string|max:255',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Manejar la carga de la nueva imagen
         if ($request->hasFile('image')) {
-            // Obtener el archivo de imagen
+            if ($game->image && $game->image !== 'no-photo.png') {
+                $oldImagePath = public_path('images/' . $game->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
             $image = $request->file('image');
-            // Generar un nombre único para la imagen
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            // Mover la imagen al directorio public/images
             $image->move(public_path('images'), $imageName);
-            // Actualizar el campo de imagen en el juego
             $game->image = $imageName;
         }
 
-        // Actualizar otros campos del juego
-        $game->update($request->except('image'));
+        $game->update($request->except('image')); // Excluir 'image' para no sobrescribir la imagen existente
 
         return redirect()->route('games.index')->with('success', 'Juego actualizado correctamente.');
     }
@@ -157,20 +154,17 @@ class GameController extends Controller
      */
     public function search(Request $request)
     {
-        // Validar la solicitud
         $request->validate([
             'query' => 'required|string|max:255',
         ]);
 
-        // Buscar juegos basados en la consulta
         $query = $request->input('query');
         $games = Game::where('title', 'LIKE', "%$query%")
                      ->orWhereHas('category', function($q) use ($query) {
-                         $q->where('manufacturer', 'LIKE', "%$query%");
+                         $q->where('name', 'LIKE', "%$query%");
                      })
                      ->get();
 
-        // Devolver los resultados como HTML
         $html = view('games.partials.game_list', compact('games'))->render();
 
         return response()->json(['html' => $html]);
@@ -199,7 +193,13 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-        // Elimina el juego de la base de datos
+        if ($game->image && $game->image !== 'no-photo.png') {
+            $imagePath = public_path('images/' . $game->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
         $game->delete();
 
         return redirect()->route('games.index')->with('success', 'Juego eliminado exitosamente.');
