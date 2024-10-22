@@ -5,9 +5,10 @@
 </head>
 <body>
     <h1>Lista de Juegos</h1>
-    <table>
+    <table border="1" cellspacing="0" cellpadding="5">
         <thead>
             <tr>
+                <th>Imagen</th>
                 <th>Título</th>
                 <th>Desarrollador</th>
                 <th>Fecha de Lanzamiento</th>
@@ -20,6 +21,9 @@
         <tbody>
             @foreach ($games as $game)
                 <tr>
+                    <td>
+                        <img src="{{ public_path('images/' . $game->image) }}" alt="{{ $game->title }}" style="width: 100px; height: 100px;">
+                    </td>
                     <td>{{ $game->title }}</td>
                     <td>{{ $game->developer }}</td>
                     <td>{{ $game->releasedate }}</td>

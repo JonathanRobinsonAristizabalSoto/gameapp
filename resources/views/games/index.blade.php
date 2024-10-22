@@ -37,12 +37,12 @@
         <div class="export-buttons">
             <form action="{{ route('games.export.pdf') }}" method="GET">
                 <button class="btn-export" type="submit" style="background: none; border: none;">
-                    <img src="{{ asset('images/btnexcel.svg') }}" alt="Exportar a PDF" style="width: 32px; height: 32px;">
+                    <img src="{{ asset('images/btnpdf.svg') }}" alt="Exportar a PDF" style="width: 32px; height: 32px;">
                 </button>
             </form>
             <form action="{{ route('games.export.excel') }}" method="GET">
                 <button class="btn-export" type="submit" style="background: none; border: none;">
-                    <img src="{{ asset('images/btnpdf.svg') }}" alt="Exportar a Excel"
+                    <img src="{{ asset('images/btnexcel.svg') }}" alt="Exportar a Excel"
                         style="width: 32px; height: 32px;">
                 </button>
             </form>
