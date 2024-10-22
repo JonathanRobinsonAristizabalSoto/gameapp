@@ -49,3 +49,21 @@ body, html{
     height: 100%; 
     scroll-behavior: smooth; 
 }
+
+.export-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espacio entre los botones */
+    margin-top: 20px; /* Espacio superior */
+}
+
+.export-buttons form {
+    margin: 0;
+}
+
+.export-icon {
+    width: 32px;
+    height: 32px;
+}
+

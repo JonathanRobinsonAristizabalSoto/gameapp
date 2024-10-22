@@ -90,10 +90,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [GameController::class, 'store'])->name('games.store');
         Route::get('/{game}', [GameController::class, 'show'])->name('games.show');
         Route::get('/{game}/edit', [GameController::class, 'edit'])->name('games.edit');
-        Route::put('/{game}', [GameController::class, 'update'])->name('games.update'); // Utiliza PUT para la actualización
+        Route::put('/{game}', [GameController::class, 'update'])->name('games.update');
         Route::delete('/{game}', [GameController::class, 'destroy'])->name('games.destroy');
-        Route::post('/search', [GameController::class, 'search'])->name('games.search'); // Ruta de búsqueda
-        Route::get('/{game}/delete', [GameController::class, 'delete'])->name('games.delete'); // Ruta de eliminación corregida
+        Route::post('/search', [GameController::class, 'search'])->name('games.search');
+        Route::get('/{game}/delete', [GameController::class, 'delete'])->name('games.delete');
+
+        // Rutas de exportación
+        Route::get('/export/pdf', [GameController::class, 'exportPdf'])->name('games.export.pdf');
+
+        Route::get('/export/excel', [GameController::class, 'exportExcel'])->name('games.export.excel');
     });
 
     // ====================

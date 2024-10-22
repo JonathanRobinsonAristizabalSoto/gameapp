@@ -33,6 +33,21 @@
             <i class="fas fa-filter filter-icon"></i>
         </div>
 
+        <!-- botones de exportar -->
+        <div class="export-buttons">
+            <form action="{{ route('games.export.pdf') }}" method="GET">
+                <button class="btn-export" type="submit" style="background: none; border: none;">
+                    <img src="{{ asset('images/btnexcel.svg') }}" alt="Exportar a PDF" style="width: 32px; height: 32px;">
+                </button>
+            </form>
+            <form action="{{ route('games.export.excel') }}" method="GET">
+                <button class="btn-export" type="submit" style="background: none; border: none;">
+                    <img src="{{ asset('images/btnpdf.svg') }}" alt="Exportar a Excel"
+                        style="width: 32px; height: 32px;">
+                </button>
+            </form>
+        </div>
+
         <!-- boton add -->
         <div class="botonuser">
             <form action="{{ route('games.create') }}">

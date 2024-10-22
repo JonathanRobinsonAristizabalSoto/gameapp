@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Game;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\GamesExport;
 
 class GameController extends Controller
 {
@@ -160,10 +163,10 @@ class GameController extends Controller
 
         $query = $request->input('query');
         $games = Game::where('title', 'LIKE', "%$query%")
-                     ->orWhereHas('category', function($q) use ($query) {
-                         $q->where('name', 'LIKE', "%$query%");
-                     })
-                     ->get();
+            ->orWhereHas('category', function ($q) use ($query) {
+                $q->where('name', 'LIKE', "%$query%");
+            })
+            ->get();
 
         $html = view('games.partials.game_list', compact('games'))->render();
 
@@ -203,5 +206,34 @@ class GameController extends Controller
         $game->delete();
 
         return redirect()->route('games.index')->with('success', 'Juego eliminado exitosamente.');
+    }
+
+    // ------------------------------------------------------------------------------------
+
+    // Metodos para exportar
+
+    /**
+     * Exporta la lista de juegos a un archivo PDF.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function exportPdf()
+    {
+        $games = Game::with('category')->get();
+        $pdf = PDF::loadView('games.pdf', compact('games'));
+        return $pdf->download('games.pdf');
+    }
+
+    // ------------------------------------------------------------------------------------
+
+    /**
+     * Exporta la lista de juegos a un archivo Excel.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function exportExcel()
+    {
+        return Excel::download(new GamesExport, 'games.xlsx');
     }
 }
