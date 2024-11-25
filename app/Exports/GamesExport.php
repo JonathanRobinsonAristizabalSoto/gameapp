@@ -13,7 +13,7 @@ class GamesExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        return Game::all(['title', 'developer', 'releasedate', 'category_id', 'price', 'genre', 'description']);
+        return Game::all(['title', 'image', 'developer', 'releasedate', 'category_id', 'user_id', 'price', 'genre', 'slider', 'description']);
     }
 
     /**
@@ -22,13 +22,16 @@ class GamesExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'Título',
-            'Desarrollador',
-            'Fecha de Lanzamiento',
-            'Categoría',
-            'Precio',
-            'Género',
-            'Descripción',
+            'title',
+            'image',
+            'developer',
+            'releasedate',
+            'category_id',
+            'user_id',
+            'price',
+            'genre',
+            'slider',
+            'description',
         ];
     }
 }

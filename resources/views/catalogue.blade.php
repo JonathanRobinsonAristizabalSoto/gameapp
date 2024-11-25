@@ -63,97 +63,24 @@
             </div>
 
             <!-- Slider por categorías -->
-            <!-- Categoría 1 -->
-            <div class="contenedor_titulo_caja_catalogue">
-                <h3>Category 1</h3>
-            </div>
-            <section class="slidercat">
-                <section class="slider owl-carousel owl-theme">
-                    <div>
-                        <img class="item" src="{{ asset('images/Slide-cat01.png') }}" alt="Slide01" loading="lazy">
-                        <a href="{{ url('view_game') }}">
-                            <h4>Ramboin Six</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit.</p>
-                    </div>
-                    <div>
-                        <img class="item" src="{{ asset('images/Slide-cat02.png') }}" alt="Slide02" loading="lazy">
-                        <a href="{{ url('view_game') }}">
-                            <h4>Skyyrim</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit a.</p>
-                    </div>
+            @foreach($categories as $category)
+                <div class="contenedor_titulo_caja_catalogue">
+                    <h3>{{ $category->name }}</h3>
+                </div>
+                <section class="slidercat">
+                    <section class="slider owl-carousel owl-theme">
+                        @foreach($category->games as $game)
+                            <div>
+                                <img class="item" src="{{ asset('images/' . $game->image) }}" alt="{{ $game->title }}" loading="lazy">
+                                <a href="{{ url('view_game', $game->id) }}">
+                                    <h4>{{ $game->title }}</h4>
+                                </a>
+                                <p>{{ $game->genre }}</p>
+                            </div>
+                        @endforeach
+                    </section>
                 </section>
-            </section>
-
-            <!-- Categoría 2 -->
-            <div class="contenedor_titulo_caja_catalogue">
-                <h3>Category 2</h3>
-            </div>
-            <section class="slidercat">
-                <section class="slider owl-carousel owl-theme">
-                    <div>
-                        <img class="item" src="{{ asset('images/Slide-cat03.png') }}" alt="Slide03" loading="lazy">
-                        <a href="{{ url('view_game') }}">
-                            <h4>Halo Reach</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit.</p>
-                    </div>
-                    <div>
-                        <img class="item" src="{{ asset('images/Slide-cat04.png') }}" alt="Slide04" loading="lazy">
-                        <a href="{{ url('view_game') }}">
-                            <h4>Resident Evil 4</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit.</p>
-                    </div>
-                </section>
-            </section>
-
-            <!-- Categoría 3 -->
-            <div class="contenedor_titulo_caja_catalogue">
-                <h3>Category 3</h3>
-            </div>
-            <section class="slidercat">
-                <section class="slider owl-carousel owl-theme">
-                    <div>
-                        <img class="item" src="{{ asset('images/Slide-cat01.png') }}" alt="Slide01" loading="lazy">
-                        <a href="{{ url('view_game') }}">
-                            <h4>Ramboin Six</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit.</p>
-                    </div>
-                    <div>
-                        <img class="item" src="{{ asset('images/Slide-cat02.png') }}" alt="Slide02" loading="lazy">
-                        <a href="{{ url('view_game') }}">
-                            <h4>Skyyrim</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit.</p>
-                    </div>
-                </section>
-            </section>
-
-            <!-- Categoría 4 -->
-            <div class="contenedor_titulo_caja_catalogue">
-                <h3>Category 4</h3>
-            </div>
-            <section class="slidercat">
-                <section class="slider owl-carousel owl-theme">
-                    <div>
-                        <img class="item" src="{{ asset('images/Slide-cat03.png') }}" alt="Slide03" loading="lazy">
-                        <a href="{{ url('view_game') }}">
-                            <h4>Halo Reach</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit.</p>
-                    </div>
-                    <div>
-                        <img class="item" src="{{ asset('images/Slide-cat04.png') }}" alt="Slide04" loading="lazy">
-                        <a href="{{ url('view_game') }}">
-                            <h4>Resident Evil 4</h4>
-                        </a>
-                        <p>Lorem ipsum dolor sit.</p>
-                    </div>
-                </section>
-            </section>
+            @endforeach
         </section>
     </div>
 @endsection
@@ -212,4 +139,3 @@
         });
     </script>
 @endsection
-

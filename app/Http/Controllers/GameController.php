@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use PDF;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\GamesExport;
+use App\Imports\GamesImport;
 
 class GameController extends Controller
 {
@@ -210,7 +210,7 @@ class GameController extends Controller
 
     // ------------------------------------------------------------------------------------
 
-    // Metodos para exportar
+    // Métodos para exportar
 
     /**
      * Exporta la lista de juegos a un archivo PDF.
@@ -231,9 +231,53 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function exportExcel()
     {
         return Excel::download(new GamesExport, 'games.xlsx');
+    }
+
+    // ------------------------------------------------------------------------------------
+
+    /**
+     * Importa la lista de juegos desde un archivo Excel.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        Excel::import(new GamesImport, $request->file('file'));
+
+        return redirect()->route('games.index')->with('success', 'Juegos importados exitosamente.');
+    }
+
+    // ------------------------------------------------------------------------------------
+
+    /**
+     * Muestra la vista de bienvenida con los juegos en el slider.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function welcome()
+    {
+        $games = Game::where('slider', 1)->get();
+        return view('welcome', compact('games'));
+    }
+
+    // ------------------------------------------------------------------------------------
+
+    /**
+     * Muestra la vista del catálogo con los juegos y sus categorías.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function catalogue()
+    {
+        $categories = Category::with('games')->get();
+        return view('catalogue', compact('categories'));
     }
 }

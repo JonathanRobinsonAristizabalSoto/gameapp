@@ -23,39 +23,77 @@
                 <div id="uploadText">
                     <p>Upload Game Image</p>
                 </div>
-                <img class="img_perfil_usuario" src="{{ $game->image ? asset('storage/' . $game->image) : asset('images/transparent.png') }}" alt="Game Image">
+                <img class="img_perfil_usuario"
+                    src="{{ $game->image ? asset('images/' . $game->image) : asset('images/transparent.png') }}"
+                    alt="Game Image">
                 <input type="file" id="inputFile" name="image" accept="image/*">
             </div>
-            <div class="caja">
-                <input type="text" name="title" value="{{ $game->title }}" placeholder="Title">
+            <div class="subcontenedor_show_grillgames">
+                <div class="contenedores_show">
+                    <label for="">Título:</label>
+                    <div class="caja">
+                        <input type="text" name="title" value="{{ $game->title }}" placeholder="Title">
+                    </div>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Desarrollador:</label>
+                    <div class="caja">
+                        <input type="text" name="developer" value="{{ $game->developer }}" placeholder="Developer">
+                    </div>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Fecha de lanzamiento:</label>
+                    <div class="caja">
+                        <input type="date" name="releasedate" value="{{ $game->releasedate }}"
+                            placeholder="Release Date">
+                    </div>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Precio:</label>
+                    <div class="caja">
+                        <input type="number" name="price" value="{{ $game->price }}" placeholder="Price">
+                    </div>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Género:</label>
+                    <div class="caja">
+                        <input type="text" name="genre" value="{{ $game->genre }}" placeholder="Genre">
+                    </div>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Descripción:</label>
+                    <div class="caja">
+                        <textarea name="description" placeholder="Enter description, max 30 words">{{ $game->description }}</textarea>
+                    </div>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Categoría:</label>
+                    <div class="caja_role">
+                        <select name="category_id" required>
+                            <option value="">Select Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $game->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Slider:</label>
+                    <div class="caja_role">
+                        <select name="slider" id="slider">
+                            <option value="0" {{ $game->slider == 0 ? 'selected' : '' }}>No activo</option>
+                            <option value="1" {{ $game->slider == 1 ? 'selected' : '' }}>Activo</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="caja">
-                <input type="text" name="developer" value="{{ $game->developer }}" placeholder="Developer">
-            </div>
-            <div class="caja">
-                <input type="date" name="releasedate" value="{{ $game->releasedate }}" placeholder="Release Date">
-            </div>
-            <div class="caja">
-                <input type="number" name="price" value="{{ $game->price }}" placeholder="Price">
-            </div>
-            <div class="caja">
-                <input type="text" name="genre" value="{{ $game->genre }}" placeholder="Genre">
-            </div>
-            <div class="caja">
-                <textarea name="description" placeholder="Enter description, max 30 words">{{ $game->description }}</textarea>
-            </div>
-            <div class="caja_role">
-                <select name="category_id" required>
-                    <option value="">Select Category</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="botonuser">
-                <button type="submit">Update</button>
+            <div class="botonregister">
+                <button type="submit" class="btn btn-explore">
+                    <img class="content-btn2-footer" src="{{ asset('images/content-btn-view-edit.svg') }}" alt="Update">
+                </button>
             </div>
         </form>
     </section>

@@ -33,29 +33,52 @@
             <i class="fas fa-filter filter-icon"></i>
         </div>
 
-        <!-- botones de exportar -->
+        <!-- boton de exportar pdf -->
         <div class="export-buttons">
+            <!-- boton add -->
+            <div class="botonadd">
+                <form action="{{ route('games.create') }}">
+                    <button class="btn-add" type="submit">
+                        <i class="fas fa-plus icon-white icon-thin"></i> <!-- Icono de añadir -->
+                    </button>
+                </form>
+            </div>
+            <!-- boton export pdf -->
             <form action="{{ route('games.export.pdf') }}" method="GET">
                 <button class="btn-export" type="submit" style="background: none; border: none;">
                     <img src="{{ asset('images/btnpdf.svg') }}" alt="Exportar a PDF" style="width: 32px; height: 32px;">
                 </button>
             </form>
+            <!-- boton export excel -->
             <form action="{{ route('games.export.excel') }}" method="GET">
                 <button class="btn-export" type="submit" style="background: none; border: none;">
-                    <img src="{{ asset('images/btnexcel.svg') }}" alt="Exportar a Excel"
-                        style="width: 32px; height: 32px;">
+                    <img src="{{ asset('images/btnexcel.svg') }}" alt="Exportar a Excel" style="width: 32px; height: 32px;">
                 </button>
             </form>
         </div>
 
-        <!-- boton add -->
-        <div class="botonuser">
-            <form action="{{ route('games.create') }}">
-                <button class="btn-user" type="submit">
-                    <i class="fas fa-plus icon-white icon-thin"></i> <!-- Icono de añadir -->
-                </button>
+        <!-- botones de importar -->
+        <!-- Ruta del archivo: resources/views/import.blade.php -->
+        <div class="import-buttons">
+            <form id="import-form" action="{{ route('games.import.excel') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <!-- Input de archivo -->
+                <input type="file" name="file" id="file-upload" accept=".xlsx, .xls" required>
+
+                <!-- Etiqueta personalizada para el input -->
+                <label for="file-upload" class="btn-import">
+                    <img src="{{ asset('images/btnimport.svg') }}" alt="Importar desde Excel" class="import-icon">
+                    Importar
+                </label>
+
+                <div id="file-info" style="display: none;">
+                    <span id="file-name"></span>
+                    <button type="submit" class="btn-confirm-import">Confirmar</button>
+                </div>
+
             </form>
         </div>
+
 
         <!-- contenido games -->
         <section class="contenedor_modulos_dash" id="list">
@@ -65,6 +88,14 @@
 @endsection
 
 @section('js')
+    <script>
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            var fileName = event.target.files[0].name;
+            document.getElementById('file-name').textContent = fileName;
+            document.getElementById('file-info').style.display = 'block';
+        });
+    </script>
+
     <script>
         $('header').on('click', '.btn-burger', function() {
             $(this).toggleClass('active');

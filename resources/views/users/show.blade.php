@@ -21,7 +21,7 @@
             {{-- Foto del usuario --}}
             <div class="img_perfiles">
                 <img class="img_perfil_usuario"
-                    src="{{ Auth::user()->photo ? asset('images/' . Auth::user()->photo) : asset('images/no-photo.png') }}"
+                    src="{{ $user->photo ? asset('images/' . $user->photo) : asset('images/no-photo.png') }}"
                     alt="Profile Image">
             </div>
             {{-- Datos del usuario --}}

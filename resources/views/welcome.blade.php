@@ -35,9 +35,9 @@
         <!-- Sección del carrusel -->
         <section class="slider owl-carousel owl-theme">
             <!-- Imágenes del carrusel -->
-            <img class="item" src="{{ asset('images/slide01.png') }}" alt="Slide01">
-            <img class="item" src="{{ asset('images/slide02.png') }}" alt="Slide02">
-            <img class="item" src="{{ asset('images/slide03.png') }}" alt="Slide03">
+            @foreach($games as $game)
+                <img class="item" src="{{ asset('images/' . $game->image) }}" alt="{{ $game->title }}">
+            @endforeach
         </section>
 
         <!-- Pie de página con botón de exploración -->
@@ -85,8 +85,7 @@
                         setTimeout(function() {
                             $('#loader').fadeOut(300, function() {
                                 $('#catalogue-container').fadeIn(300);
-                                window.location.href =
-                                    "{{ route('catalogue') }}";
+                                window.location.href = "{{ route('catalogue') }}";
                             });
                         }, 300);
                     });

@@ -15,14 +15,10 @@ use App\Http\Controllers\CollectionController;
 // ====================
 
 // Ruta vista Welcome
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [GameController::class, 'welcome'])->name('welcome');
 
 // Ruta vista Catalogue
-Route::get('/catalogue', function () {
-    return view('catalogue');
-})->name('catalogue');
+Route::get('/catalogue', [GameController::class, 'catalogue'])->name('catalogue');
 
 // Ruta dashboard, protegida por autenticación y verificación
 Route::get('/dashboard', function () {
@@ -66,6 +62,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{user}/disable', [UserController::class, 'disable'])->name('users.disable');
     Route::post('/users/{user}/disable', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
 
+    // Rutas de exportación
+    Route::get('/users/export/pdf', [UserController::class, 'exportPdf'])->name('users.export.pdf');
+    Route::get('/users/export/excel', [UserController::class, 'exportExcel'])->name('users.export.excel');
+
+    // Rutas de importación
+    Route::post('users/import/excel', [UserController::class, 'importExcel'])->name('users.import.excel');
+
     // ====================
     // Rutas de categorías (CRUD)
     // ====================
@@ -80,6 +83,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/search', [CategoryController::class, 'search'])->name('categories.search');
         Route::get('/{category}/delete', [CategoryController::class, 'delete'])->name('categories.delete');
     });
+
+    // Rutas de exportación
+    Route::get('/categories/export/pdf', [CategoryController::class, 'exportPdf'])->name('categories.export.pdf');
+    Route::get('/categories/export/excel', [CategoryController::class, 'exportExcel'])->name('categories.export.excel');
+
+    // Rutas de importación
+    Route::post('categories/import/excel', [CategoryController::class, 'importExcel'])->name('categories.import.excel');
 
     // ====================
     // Rutas de juegos (CRUD)
@@ -96,9 +106,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/{game}/delete', [GameController::class, 'delete'])->name('games.delete');
 
         // Rutas de exportación
-        Route::get('/export/pdf', [GameController::class, 'exportPdf'])->name('games.export.pdf');
+        Route::get('/games/export/pdf', [GameController::class, 'exportPdf'])->name('games.export.pdf');
+        Route::get('/games/export/excel', [GameController::class, 'exportExcel'])->name('games.export.excel');
 
-        Route::get('/export/excel', [GameController::class, 'exportExcel'])->name('games.export.excel');
+        // Rutas de importación
+        Route::post('games/import/excel', [GameController::class, 'importExcel'])->name('games.import.excel');
     });
 
     // ====================

@@ -81,8 +81,9 @@ main.cuerpo {
         justify-items: center;
 
         img {
-            width: 280px;
+            width: 260px;
             margin: auto;
+            border-radius: 20px;
         }
 
         /* Estilos para los nav o botones del slider */
@@ -107,7 +108,7 @@ main.cuerpo {
                 justify-content: center;
                 cursor: pointer;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                margin: 10px; /* Ajusta el espacio entre botones */
+                margin: 15px; /* Ajusta el espacio entre botones */
 
                 /* Ajustes personalizados el span dentro del boton */
                 span {

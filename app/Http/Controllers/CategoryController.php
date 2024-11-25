@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Exports\CategoriesExport;
+use App\Imports\CategoriesImport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class CategoryController extends Controller
 {
@@ -206,5 +209,37 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index')
             ->with('success', 'Categoría eliminada exitosamente.');
+    }
+
+    // ====================
+    // Exportar categorías a PDF
+    // ====================
+    public function exportPdf()
+    {
+        $categories = Category::all();
+        $pdf = PDF::loadView('categories.pdf', compact('categories'));
+        return $pdf->download('categories.pdf');
+    }
+
+    // ====================
+    // Exportar categorías a Excel
+    // ====================
+    public function exportExcel()
+    {
+        return Excel::download(new CategoriesExport, 'categories.xlsx');
+    }
+
+    // ====================
+    // Importar categorías desde Excel
+    // ====================
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        Excel::import(new CategoriesImport, $request->file('file'));
+
+        return redirect()->route('categories.index')->with('success', 'Categorías importadas exitosamente.');
     }
 }

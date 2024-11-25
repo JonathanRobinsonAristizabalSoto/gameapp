@@ -27,15 +27,37 @@
             <div class="subcontenedor_show">
                 <p class="titulo_fullname">{{ $game->title }}</p>
                 <p class="titulo_email">{{ $game->developer }}</p>
-                <p class="titulo_user">Usuario: {{ $game->user->fullname }}</p> <!-- Mostrar el nombre del usuario -->
                 <p class="titulo_role">{{ $game->category->name }}</p>
             </div>
             <div class="subcontenedor_show_grillgames">
-                <p>{{ $game->releasedate }}</p>
-                <p>{{ $game->price }}</p>
-                <p>{{ $game->genre }}</p>
-                <p>{{ $game->description }}</p>
-                <p>{{ $game->created_at }}</p>
+                <div class="contenedores_show">
+                    <label for="">Fecha de lanzamiento:</label>
+                    <p>{{ $game->releasedate }}</p>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Precio:</label>
+                    <p>{{ $game->price }}</p>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Género:</label>
+                    <p>{{ $game->genre }}</p>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Descripción:</label>
+                    <p>{{ $game->description }}</p>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Slider:</label>
+                    <p>{{ $game->slider ? 'Activo' : 'No activo' }}</p>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Fecha de creación:</label>
+                    <p>{{ $game->created_at }}</p>
+                </div>
+                <div class="contenedores_show">
+                    <label for="">Fecha de actualización:</label>
+                    <p>{{ $game->updated_at }}</p>
+                </div>
             </div>
         </div>
     </section>

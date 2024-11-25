@@ -43,13 +43,49 @@
             <i class="fas fa-filter filter-icon"></i>
         </div>
 
-        <!-- Botón agregar -->
-        <div class="botonuser">
-            <a href="{{ route('categories.create') }}">
-                <button class="btn-user">
-                    <img src="{{ asset('images/content-btn-add.svg') }}" alt="Add Category">
+        <!-- boton de exportar pdf -->
+        <div class="export-buttons">
+            <!-- boton add -->
+            <div class="botonadd">
+                <form action="{{ route('categories.create') }}">
+                    <button class="btn-add" type="submit">
+                        <i class="fas fa-plus icon-white icon-thin"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- boton export pdf -->
+            <form action="{{ route('categories.export.pdf') }}" method="GET">
+                <button class="btn-export" type="submit" style="background: none; border: none;">
+                    <img src="{{ asset('images/btnpdf.svg') }}" alt="Exportar a PDF" style="width: 32px; height: 32px;">
                 </button>
-            </a>
+            </form>
+            <!-- boton export excel -->
+            <form action="{{ route('categories.export.excel') }}" method="GET">
+                <button class="btn-export" type="submit" style="background: none; border: none;">
+                    <img src="{{ asset('images/btnexcel.svg') }}" alt="Exportar a Excel" style="width: 32px; height: 32px;">
+                </button>
+            </form>
+        </div>
+
+        <!-- botones de importar -->
+        <div class="import-buttons">
+            <form id="import-form" action="{{ route('categories.import.excel') }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <!-- Input de archivo -->
+                <input type="file" name="file" id="file-upload" accept=".xlsx, .xls" required>
+
+                <!-- Etiqueta personalizada para el input -->
+                <label for="file-upload" class="btn-import">
+                    <img src="{{ asset('images/btnimport.svg') }}" alt="Importar desde Excel" class="import-icon">
+                    Importar
+                </label>
+
+                <div id="file-info" style="display: none;">
+                    <span id="file-name"></span>
+                    <button type="submit" class="btn-confirm-import">Confirmar</button>
+                </div>
+            </form>
         </div>
 
         <!-- Contenido del dashboard -->
@@ -60,6 +96,13 @@
 @endsection
 
 @section('js')
+    <script>
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            var fileName = event.target.files[0].name;
+            document.getElementById('file-name').textContent = fileName;
+            document.getElementById('file-info').style.display = 'block';
+        });
+    </script>
     <script>
         $(document).ready(function() {
             // Script para el menú hamburguesa

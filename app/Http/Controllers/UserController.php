@@ -6,6 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class UserController extends Controller
 {
@@ -155,5 +160,49 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('users.index')->with('success', 'Estado del usuario actualizado exitosamente.');
+    }
+
+    // ====================
+    // Exportar usuarios a PDF
+    // ====================
+    public function exportPdf()
+    {
+        $users = User::all();
+        $pdf = PDF::loadView('users.pdf', compact('users'));
+        return $pdf->download('users.pdf');
+    }
+
+    // ====================
+    // Exportar usuarios a Excel
+    // ====================
+    public function exportExcel()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    // ====================
+    // Importar usuarios desde Excel
+    // ====================
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        try {
+            Excel::import(new UsersImport, $request->file('file'));
+            return redirect()->route('users.index')->with('success', 'Usuarios importados exitosamente.');
+        } catch (ValidationException $e) {
+            $failures = $e->failures();
+            $messages = [];
+
+            foreach ($failures as $failure) {
+                $messages[] = $failure->errors();
+            }
+
+            return redirect()->route('users.index')->withErrors($messages);
+        } catch (\Throwable $e) {
+            return redirect()->route('users.index')->with('error', 'No se puede importar la base de datos: ' . $e->getMessage());
+        }
     }
 }
