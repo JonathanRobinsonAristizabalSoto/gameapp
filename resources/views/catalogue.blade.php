@@ -75,7 +75,7 @@
                                 <a href="{{ url('view_game', $game->id) }}">
                                     <h4>{{ $game->title }}</h4>
                                 </a>
-                                <p>{{ $game->genre }}</p>
+                                <p>{{ $game->developer }}</p>
                             </div>
                         @endforeach
                     </section>
@@ -94,8 +94,9 @@
             // Inicialización del carrusel
             $('.owl-carousel').owlCarousel({
                 loop: true,
-                margin: 10,
+                margin: 5,
                 nav: true,
+                dots: false,
                 responsive: {
                     0: {
                         items: 2

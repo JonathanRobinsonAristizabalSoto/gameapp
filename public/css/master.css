@@ -621,12 +621,12 @@ main.cuerpo {
         display: flex;
         flex-direction: column;
         justify-items: center;
-        margin: 0 50px;
+        margin: 0 auto;
 
         img {
             width: 110px;
             height: auto;
-            margin-left: 25px;
+            margin-right: 50px;
             border-radius: 15px;
         }
 
@@ -708,12 +708,12 @@ main.cuerpo {
         flex-wrap: wrap;
         justify-content: center;
         align-items: flex-start;
-        margin-top: 0.5rem;
+        margin-top: 20px;
     }
 
     .slidercat .item {
         margin: 1.5rem;
-        margin-block: 0.5rem;
+        margin-block: 10px;
         text-align: center;
     }
 
@@ -721,7 +721,7 @@ main.cuerpo {
     .slidercat p {
         width: 150px;
         text-align: center;
-        margin-top: 0.5rem;
+        margin-top: 10px;
         margin-left: 5px;
     }
 
@@ -1885,4 +1885,15 @@ main.cuerpo {
     background-color: var(--cian);
     color: var(--morado);
     transform: scale(1.05);
+}
+
+
+/* estilos para vista viewgame */
+
+.img_game_view{
+    width: 220px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: 0 auto;
+    display: block;
 }

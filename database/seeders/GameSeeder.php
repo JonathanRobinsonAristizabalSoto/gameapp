@@ -35,7 +35,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Carreras',
             'description' => 'Explora el vibrante mundo abierto de México en Forza Horizon 5.',
-            'image' => 'forza.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -48,13 +48,13 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Shooter',
             'description' => 'Continúa la saga de Gears of War con Gears 5.',
-            'image' => 'gears5.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
         // Creación de juegos ficticios para Xbox One categoria 2
         Game::create([
-            'title' => 'Halo 5: Guardians',
+            'title' => 'Halo 5 Guardians',
             'developer' => '343 Industries',
             'releasedate' => '2015-10-27',
             'category_id' => 2,
@@ -62,12 +62,12 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Shooter',
             'description' => 'Únete al Jefe Maestro en su búsqueda para salvar a la humanidad en Halo 5: Guardians.',
-            'image' => 'halo5.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
         Game::create([
-            'title' => 'Forza Motorsport 7',
+            'title' => 'Forza Motor sport 7',
             'developer' => 'Turn 10 Studios',
             'releasedate' => '2017-10-03',
             'category_id' => 2,
@@ -75,7 +75,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Carreras',
             'description' => 'Compite en emocionantes carreras en Forza Motorsport 7.',
-            'image' => 'forza7.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -88,7 +88,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Shooter',
             'description' => 'Continúa la saga de Gears of War con Gears of War 4.',
-            'image' => 'gears4.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -102,7 +102,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Shooter',
             'description' => 'Únete al Jefe Maestro en su lucha contra el Covenant en Halo 3.',
-            'image' => 'halo3.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -115,7 +115,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Shooter',
             'description' => 'Continúa la lucha contra los Locust en Gears of War 3.',
-            'image' => 'gears3.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -128,7 +128,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Carreras',
             'description' => 'Compite en emocionantes carreras en Forza Motorsport 4.',
-            'image' => 'forza4.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -155,7 +155,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Aventura',
             'description' => 'Explora el vasto mundo de Hyrule en The Legend of Zelda: Breath of the Wild.',
-            'image' => 'zelda.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -168,7 +168,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Simulación',
             'description' => 'Crea tu propia isla paradisíaca en Animal Crossing: New Horizons.',
-            'image' => 'animal_crossing.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -182,7 +182,7 @@ class GameSeeder extends Seeder
             'price' => 39.99,
             'genre' => 'RPG',
             'description' => 'Embárcate en una nueva aventura Pokémon en la región de Alola en Pokémon Sun.',
-            'image' => 'pokemon_sun.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -195,7 +195,7 @@ class GameSeeder extends Seeder
             'price' => 39.99,
             'genre' => 'Aventura',
             'description' => 'Explora el mundo de Hyrule en The Legend of Zelda: A Link Between Worlds.',
-            'image' => 'zelda_link_between_worlds.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -208,7 +208,7 @@ class GameSeeder extends Seeder
             'price' => 39.99,
             'genre' => 'Plataformas',
             'description' => 'Únete a Mario en una nueva aventura en 3D en Super Mario 3D Land.',
-            'image' => 'mario_3d_land.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -222,7 +222,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Lucha',
             'description' => 'Lucha con tus personajes favoritos de Nintendo en Super Smash Bros. for Wii U.',
-            'image' => 'smash_bros.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -235,7 +235,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Carreras',
             'description' => 'Compite en emocionantes carreras en Mario Kart 8.',
-            'image' => 'mario_kart_8.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -248,13 +248,13 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Shooter',
             'description' => 'Participa en emocionantes batallas de tinta en Splatoon.',
-            'image' => 'splatoon.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
         // Creación de juegos ficticios para Play Station 5 categoria 7
         Game::create([
-            'title' => 'Spider-Man: Miles Morales',
+            'title' => 'SpiderMan Miles Morales',
             'developer' => 'Insomniac Games',
             'releasedate' => '2020-11-12',
             'category_id' => 7,
@@ -267,7 +267,7 @@ class GameSeeder extends Seeder
         ]);
 
         Game::create([
-            'title' => 'Demon\'s Souls',
+            'title' => 'Demons Souls',
             'developer' => 'Bluepoint Games',
             'releasedate' => '2020-11-12',
             'category_id' => 7,
@@ -275,7 +275,7 @@ class GameSeeder extends Seeder
             'price' => 69.99,
             'genre' => 'RPG',
             'description' => 'Revive el clásico juego de rol de acción en la PlayStation 5 con Demon\'s Souls.',
-            'image' => 'demons_souls.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -288,7 +288,7 @@ class GameSeeder extends Seeder
             'price' => 69.99,
             'genre' => 'Acción y aventura',
             'description' => 'Únete a Ratchet y Clank en una nueva aventura interdimensional en Rift Apart.',
-            'image' => 'ratchet_clank.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -302,7 +302,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Acción y aventura',
             'description' => 'Continúa la historia de Ellie en The Last of Us Part II.',
-            'image' => 'last_of_us_2.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -315,13 +315,13 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Acción y aventura',
             'description' => 'Únete a Kratos y Atreus en una épica aventura en God of War.',
-            'image' => 'god_of_war.jpg',
+            'image' => 'no-game.png',
             'slider' => 1,
             
         ]);
 
         Game::create([
-            'title' => 'Uncharted 4: A Thief\'s End',
+            'title' => 'Uncharted 4 A Thiefs End',
             'developer' => 'Naughty Dog',
             'releasedate' => '2016-05-10',
             'category_id' => 8,
@@ -329,7 +329,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Acción y aventura',
             'description' => 'Acompaña a Nathan Drake en su última aventura en Uncharted 4: A Thief\'s End.',
-            'image' => 'uncharted_4.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -343,7 +343,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Acción y aventura',
             'description' => 'Sobrevive en un mundo post-apocalíptico en The Last of Us.',
-            'image' => 'last_of_us.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -356,7 +356,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Acción y aventura',
             'description' => 'Explora el Salvaje Oeste en Red Dead Redemption.',
-            'image' => 'red_dead_redemption.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
 
@@ -369,7 +369,7 @@ class GameSeeder extends Seeder
             'price' => 59.99,
             'genre' => 'Acción y aventura',
             'description' => 'Vive la vida criminal en Los Santos en Grand Theft Auto V.',
-            'image' => 'gta_v.jpg',
+            'image' => 'no-game.png',
             'slider' => 0,
         ]);
     }

@@ -29,7 +29,7 @@ class CategorySeeder extends Seeder
             'manufacturer' => 'Microsoft',
             'releasedate' => '2013-11-22',
             'description' => 'La Xbox One es una consola de videojuegos de octava generación desarrollada por Microsoft.',
-            'image' => 'XboxOne.png',
+            'image' => 'no-category.png',
         ]);
         //categoría 3
         Category::create([
@@ -55,7 +55,7 @@ class CategorySeeder extends Seeder
             'manufacturer' => 'Nintendo',
             'releasedate' => '2011-02-26',
             'description' => 'La Nintendo 3DS es una consola portátil que permite ver imágenes en 3D sin gafas especiales.',
-            'image' => '3DS.png',
+            'image' => 'no-category.png',
         ]);
         //categoría 6
         Category::create([
@@ -63,7 +63,7 @@ class CategorySeeder extends Seeder
             'manufacturer' => 'Nintendo',
             'releasedate' => '2012-11-18',
             'description' => 'La Wii U es una consola de videojuegos desarrollada por Nintendo, sucesora de la Wii.',
-            'image' => 'WiiU.png',
+            'image' => 'no-category.png',
         ]);
 
         // Categorías de Sony
@@ -81,7 +81,7 @@ class CategorySeeder extends Seeder
             'manufacturer' => 'Sony',
             'releasedate' => '2013-11-15',
             'description' => 'La PlayStation 4 es una consola de videojuegos de octava generación desarrollada por Sony.',
-            'image' => 'Ps4.png',
+            'image' => 'no-category.png',
         ]);
         //categoría 9
         Category::create([
@@ -89,7 +89,7 @@ class CategorySeeder extends Seeder
             'manufacturer' => 'Sony',
             'releasedate' => '2006-11-11',
             'description' => 'La PlayStation 3 es una consola de videojuegos de séptima generación desarrollada por Sony.',
-            'image' => 'Ps3.png',
+            'image' => 'no-category.png',
         ]);
     }
 }
