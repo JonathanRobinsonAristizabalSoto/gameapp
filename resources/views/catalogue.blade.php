@@ -73,7 +73,7 @@
                             <div>
                                 <img class="item" src="{{ asset('images/' . $game->image) }}" alt="{{ $game->title }}" loading="lazy">
                                 <a href="{{ url('view_game', $game->id) }}">
-                                    <h4>{{ $game->title }}</h4>
+                                    <h4>{{ \Illuminate\Support\Str::words($game->title, 2, '...') }}</h4>
                                 </a>
                                 <p>{{ $game->developer }}</p>
                             </div>

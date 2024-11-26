@@ -49,6 +49,11 @@
                 My Dashboard
                 </a>
                 <hr>
+                <a href="{{ route('catalogue') }}">
+                    <img src="{{ asset('images/ico-menu-catalogue.png') }}" alt="Catalogue Icon">
+                    Catalogue
+                </a>
+                <hr>
                 <!-- Formulario para cerrar sesión -->
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf

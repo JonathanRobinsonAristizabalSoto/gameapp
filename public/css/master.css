@@ -1135,6 +1135,7 @@ main.cuerpo {
     margin-bottom: 20px; /* Espacio inferior entre elementos */
     box-sizing: border-box; /* Incluye el border en el tamaño total del contenedor */
     display: flex; /* Usa flexbox para organizar el contenido */
+    
     align-items: center; /* Alineación vertical centrada */
 }
 
@@ -1145,6 +1146,7 @@ main.cuerpo {
     align-items: center; /* Alineación vertical centrada */
     width: 100%; /* Ocupa el ancho total del contenedor */
     left: 10px;
+    
 }
 
 /* Contenedor para la imagen de perfil en miniatura */

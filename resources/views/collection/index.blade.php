@@ -8,70 +8,49 @@
 @section('content')
     <header>
         <section class="cabecera_mydash">
-            <img class="logotitulo-mydash" src="{{ asset('images/logotitulo-mydash.svg') }}" alt="Logo">
+            <img class="logotitulo-mydash" src="{{ asset('images/logotitulo-mycollection.svg') }}" alt="Logo">
 
             {{-- Menú hamburguesa --}}
             @include('includes.burger-menu')
         </section>
     </header>
 
-    <section class="contenedor_modulos_dash">
-        @if (!$hasCategories && !$hasGames)
-            <!-- Mensaje cuando no hay categorías ni juegos -->
-            <div class="no-categories-games-message">
-                <h2 class="notification-title">Upps!</h2><br>
-                <p>Este usuario no tiene <span class="highlight1">categorías</span> ni <span class="highlight2">juegos</span> asociados.</p>
+    <section class="scroll">
+        @if (session('success'))
+            <div class="alert alert-success" id="success-message"
+                style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px; display: none;">
+                {{ session('success') }}
             </div>
-        @elseif (!$hasCategories)
-            <!-- Mensaje cuando no hay categorías -->
-            <div class="no-categories-message">
-                <h2 class="notification-title">Upps!</h2><br>
-                <p>Este usuario no tiene <span class="highlight1">categorías</span> asociadas.</p>
-            </div>
-        @elseif (!$hasGames)
-            <!-- Mensaje cuando no hay juegos -->
-            <div class="no-games-message">
-                <h2 class="notification-title">Upps!</h2><br>
-                <p>Este usuario no tiene <span class="highlight2">juegos</span> asociados.</p>
-            </div>
-        @else
-            <!-- Si existen categorías y juegos, mostramos los juegos agrupados -->
-            @foreach ($categories as $categoryName => $games)
-                <h3 class="titulo-categoria-mycollection">{{ $categoryName }}</h3>
-
-                <section class="contenedor_dash">
-                    @foreach ($games as $game)
-                        <section class="contenido_dash">
-                            <!-- Contenedor para la imagen de games en miniatura -->
-                            <div class="img_perfil_miniatura">
-                                <img class="img_perfil_usuario_miniatura"
-                                     src="{{ $game->image ? asset('images/' . $game->image) : asset('images/no-photo.png') }}"
-                                     alt="category Thumbnail">
-                            </div>
-                            <div class="texto-contenedor-dash">
-                                <div class="titulo_modulo">
-                                    <h4>{{ $game->title }}</h4>
-                                </div>
-                                <div class="parrafo_modulo">
-                                    <p>{{ $game->genre }}</p>
-                                </div>
-                            </div>
-                            <div class="boton_view_dash">
-                                <!-- Botón de ver -->
-                                <a href="{{ route('collection.show', $game->id) }}" class="btn btn-explore" aria-label="View {{ $game->title }}">
-                                    <i class="fa-regular fa-eye icon-white icon-thin"></i>
-                                </a>
-
-                                <!-- Botón de eliminar -->
-                                <a href="{{ route('collection.delete', $game->id) }}" class="btn btn-delete" aria-label="Delete {{ $game->title }}">
-                                    <i class="fa-regular fa-trash-can icon-white icon-thin"></i>
-                                </a>
-                            </div>
-                        </section>
-                    @endforeach
-                </section>
-            @endforeach
         @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger" id="error-message"
+                style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px; display: none;">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger" id="validation-errors"
+                style="position: absolute; top: 200px; left: 50%; transform: translateX(-50%); z-index: 1000; text-align: center; width: 330px; display: none;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- Caja de búsqueda -->
+        <div class="search-box">
+            <input id="qsearch" type="text" placeholder="Buscar">
+            <i class="fas fa-filter filter-icon"></i>
+        </div>
+
+        <!-- Lista de colecciones -->
+        <div id="list">
+            @include('collection.partials.collection_list', ['categories' => $categories])
+        </div>
     </section>
 @endsection
 
@@ -89,6 +68,54 @@
                     document.querySelector('.contenido_menu').classList.toggle('oculto');
                 }
             });
+        });
+
+        // Script para búsqueda en tiempo real
+        $(document).ready(function() {
+            $('body').on('keyup', '#qsearch', function(e) {
+                e.preventDefault();
+                var query = $(this).val();
+                var token = '{{ csrf_token() }}';
+
+                $.ajax({
+                    url: '{{ route('collection.search') }}',
+                    method: 'POST',
+                    data: {
+                        query: query,
+                        _token: token
+                    },
+                    success: function(data) {
+                        $('#list').html(data.html);
+                    }
+                });
+            });
+
+            // Mostrar y ocultar el mensaje de éxito de manera suave
+            @if (session('success'))
+                $('#success-message').fadeIn('slow', function() {
+                    setTimeout(function() {
+                        $('#success-message').fadeOut('slow');
+                    }, 3000);
+                });
+            @endif
+
+            // Mostrar y ocultar el mensaje de error de manera suave
+            @if (session('error'))
+                $('#error-message').fadeIn('slow', function() {
+                    setTimeout(function() {
+                        $('#error-message').fadeOut('slow');
+                    }, 3000);
+                });
+            @endif
+
+            // Mostrar mensajes de validación de errores de manera suave
+            @if ($errors->any())
+                $('#validation-errors').fadeIn('slow', function() {
+                    setTimeout(function() {
+                        $('#validation-errors').fadeOut('slow');
+                    }, 4000);
+                });
+            @endif
         });
     </script>
 @endsection
