@@ -67,7 +67,7 @@ class GameSeeder extends Seeder
         ]);
 
         Game::create([
-            'title' => 'Forza Motor sport 7',
+            'title' => 'Forza Motorsport 7',
             'developer' => 'Turn 10 Studios',
             'releasedate' => '2017-10-03',
             'category_id' => 2,
@@ -147,7 +147,7 @@ class GameSeeder extends Seeder
         ]);
 
         Game::create([
-            'title' => 'The Legend of Zelda: Breath of the Wild',
+            'title' => 'The Legend of Zelda Breath of the Wild',
             'developer' => 'Nintendo EPD',
             'releasedate' => '2017-03-03',
             'category_id' => 4,
@@ -214,7 +214,7 @@ class GameSeeder extends Seeder
 
         // Creación de juegos ficticios para Wii U categoria 6
         Game::create([
-            'title' => 'Super Smash Bros. for Wii U',
+            'title' => 'Super Smash Bros',
             'developer' => 'Bandai Namco Studios',
             'releasedate' => '2014-11-21',
             'category_id' => 6,

@@ -1184,8 +1184,8 @@ main.cuerpo {
     position: relative;
     left: 20px;
     color: var(--magenta);
-    width: 150px;
-    font-size: 14px;
+    width: 120px;
+    font-size: 12px;
     font-weight: 400;
 }
 
@@ -1898,4 +1898,19 @@ main.cuerpo {
     border-radius: 20px;
     margin: 0 auto;
     display: block;
+}
+
+.categoria {
+    margin-bottom: 10px; /* Espacio entre categorías */
+}
+
+.titulo-categoria-mycollection {
+    font-weight: 400;
+    font-family: var(--ff-title);
+    font-size: 1.5rem;
+    color: var(--blanco);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    clear: both; /* Asegura que el título de la categoría esté en una nueva línea */
+    text-align: center;
 }

@@ -59,4 +59,32 @@ class CollectionController extends Controller
         // Retornar la vista de confirmación de eliminación
         return view('collection.delete', compact('game'));
     }
+
+    public function search(Request $request)
+    {
+        // Obtener el usuario autenticado
+        $user = auth()->user();
+
+        // Obtener el término de búsqueda
+        $query = $request->input('query');
+
+        // Buscar juegos del usuario que coincidan con el término de búsqueda
+        $games = Game::with('category')
+            ->where('user_id', $user->id)
+            ->where(function ($q) use ($query) {
+                $q->where('title', 'like', "%{$query}%")
+                  ->orWhere('genre', 'like', "%{$query}%");
+            })
+            ->get();
+
+        // Agrupar juegos por categorías
+        $categories = $games->groupBy(function ($game) {
+            return $game->category->name;
+        });
+
+        // Retornar la vista parcial con los resultados de la búsqueda
+        $html = view('collection.partials.collection_list', compact('categories'))->render();
+
+        return response()->json(['html' => $html]);
+    }
 }
